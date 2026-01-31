@@ -8,6 +8,7 @@
 
 // Forward declared with include in the cpp file
 class UCapsuleComponent;
+class USkeletalMeshComponent;
 
 UCLASS()
 class ONETEN_API ABird : public APawn
@@ -27,4 +28,6 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
 
+	UPROPERTY(VisibleAnywhere)
+	USkeletalMeshComponent* BirdMesh;
 };
