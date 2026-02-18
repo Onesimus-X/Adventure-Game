@@ -5,12 +5,17 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "CharacterTypes.h"
 #include "PlayerCharacter.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
 class USpringArmComponent;
+
 class UCameraComponent;
+class AItem;
+
+
 
 UCLASS()
 class ONETEN_API APlayerCharacter : public ACharacter
@@ -41,14 +46,29 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputAction* JumpAction;
 
+	UPROPERTY(EditAnywhere, Category = Input)
+	UInputAction* PickUpAction;
+
+	void PickUp();
+
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
 private:
+
+	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* CameraBoom;
 
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* ViewCamera;
+
+	UPROPERTY(VisibleInstanceOnly)
+	AItem* OverlappingItem;
+
+public:
+	FORCEINLINE void SetOverlappingItem(AItem* Item) { OverlappingItem = Item; }
+	FORCEINLINE ECharacterState GetCharacterState() const { return CharacterState; }
 
 };

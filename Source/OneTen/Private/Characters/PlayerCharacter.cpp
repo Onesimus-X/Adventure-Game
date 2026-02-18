@@ -10,6 +10,9 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
+#include "Items/Item.h"
+#include "Items/Weapons/Weapon.h"
+
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
@@ -45,6 +48,16 @@ void APlayerCharacter::BeginPlay()
 
 }
 
+void APlayerCharacter::PickUp() // EKeyPressed()
+{
+	AWeapon* OverlappingWeapon = Cast<AWeapon>(OverlappingItem);
+	if (OverlappingWeapon)
+	{
+		OverlappingWeapon->Equip(GetMesh(), FName("hand_FK_rSocket"));
+		CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
+	}
+}
+
 void APlayerCharacter::Move(const FInputActionValue& Value)
 {
 	const FVector2D MovementVector = Value.Get<FVector2D>();
@@ -67,6 +80,7 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 	AddControllerYawInput(LookAxisVector.X);
 }
 
+
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -82,6 +96,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Jump);
+		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Triggered, this, &APlayerCharacter::PickUp);
 	}
 
 }
