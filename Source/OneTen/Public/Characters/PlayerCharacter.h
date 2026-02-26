@@ -31,11 +31,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	//virtual void Jump() override;
 
-	// 133 Diabling Weapon Box Collision
-	/*
+
 	UFUNCTION(BlueprintCallable)
 	void SetWeaponCollisionEnabled(ECollisionEnabled::Type CollisionEnabled);
-	*/
+	
 
 protected:
 
