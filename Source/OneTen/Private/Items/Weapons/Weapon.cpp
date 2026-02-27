@@ -6,6 +6,7 @@
 
 #include "Components/BoxComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Interfaces/HitInterface.h"
 
 
 AWeapon::AWeapon()
@@ -79,5 +80,22 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		EDrawDebugTrace::ForDuration,
 		BoxHit,
 		true //Ignore self, which is also what ActorsToIgnore is doing. This is a required input bool to enter anyway.
-		);
+	);
+	
+	if (BoxHit.GetActor())
+	{
+		
+		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
+		if (HitInterface)
+		{
+			HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
+		}
+		IgnoreActors.AddUnique(BoxHit.GetActor());
+
+		CreateFields(BoxHit.ImpactPoint);
+	}
+	
+
+
+
 }
