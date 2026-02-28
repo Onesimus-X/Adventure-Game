@@ -6,7 +6,10 @@
 
 #include "Components/BoxComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
 #include "Interfaces/HitInterface.h"
+
+#include "NiagaraComponent.h"
 
 
 AWeapon::AWeapon()
@@ -39,6 +42,18 @@ void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
 {
 	AttachMeshToSocket(InParent, InSocketName);
 	ItemState = EItemState::EIS_Equipped;
+	if (PickupSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			PickupSound,
+			GetActorLocation()
+		);
+	}
+	if (EmbersEffect)
+	{
+		EmbersEffect->Deactivate();
+	}
 }
 
 void AWeapon::AttachMeshToSocket(USceneComponent* InParent, const FName& InSocketName)
