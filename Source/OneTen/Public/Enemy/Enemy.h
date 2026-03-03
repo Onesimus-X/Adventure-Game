@@ -31,6 +31,8 @@ protected:
 	
 	virtual void BeginPlay() override;
 
+	void Die();
+
 private:
 
 	UPROPERTY(VisibleAnywhere)
@@ -38,5 +40,11 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UHealthBarComponent* HealthBarWidget;
+
+	UPROPERTY()
+	AActor* CombatTarget;
+
+	UPROPERTY(EditAnywhere)
+	double CombatRadius = 500.f;
 	
 };
