@@ -55,7 +55,7 @@ void APlayerCharacter::PickUp() // EKeyPressed()
 	AWeapon* OverlappingWeapon = Cast<AWeapon>(OverlappingItem);
 	if (OverlappingWeapon)
 	{
-		OverlappingWeapon->Equip(GetMesh(), FName("hand_FK_rSocket"));
+		OverlappingWeapon->Equip(GetMesh(), FName("hand_FK_rSocket"), this, this);
 		CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
 		OverlappingItem = nullptr; // If you already have a weapon, don't try to pickup again
 		EquippedWeapon = OverlappingWeapon;
