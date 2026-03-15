@@ -7,7 +7,7 @@
 #include "Interfaces/HitInterface.h"
 #include "Enemy.generated.h"
 
-
+class UAnimMontage;
 class UAttributeComponent;
 class UHealthBarComponent;
 
@@ -31,6 +31,14 @@ protected:
 	
 	virtual void BeginPlay() override;
 
+	/**
+	* Play montage functions
+	*/
+	void PlayHitReactMontage(const FName& SectionName);
+
+
+
+
 	void Die();
 
 private:
@@ -46,5 +54,11 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	double CombatRadius = 500.f;
+
+	/**
+	* Animation montages
+	*/
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage* HitReactMontage;
 	
 };
