@@ -61,28 +61,10 @@ void AEnemy::Die()
 		HealthBarWidget->SetVisibility(false);
 	}
 
-
-	/*
-	if (BP_Breakable)
-	{
-		FTransform SpawnTransform = GetActorTransform();
-
-        FActorSpawnParameters Params;
-		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		
-		ABreakableActor* SpawnedBreakable = GetWorld()->SpawnActor<ABreakableActor>(
-			BP_Breakable,
-			SpawnTransform,
-			Params
-		);
-
-	}
-    Destroy();
-	*/
-
 	if (BreakableSpawn)
 	{
 		FVector SpawnLocation = GetActorLocation();
+		SpawnLocation.Z = 48.f; //Static mesh pivot is at the feet of the mesh.
 		FRotator SpawnRotation = GetActorRotation();
 
 		GetWorld()->SpawnActor<ABreakableActor>(BreakableSpawn, SpawnLocation, SpawnRotation);
