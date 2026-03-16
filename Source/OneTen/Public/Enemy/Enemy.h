@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Interfaces/HitInterface.h"
+#include "Breakable/BreakableActor.h"
 #include "Enemy.generated.h"
 
 class UAnimMontage;
@@ -29,6 +30,7 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
+
 protected:
 	
 	virtual void BeginPlay() override;
@@ -37,9 +39,6 @@ protected:
 	* Play montage functions
 	*/
 	void PlayHitReactMontage(const FName& SectionName);
-
-
-
 
 	void Die();
 
@@ -68,5 +67,15 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = VisualEffects)
 	UParticleSystem* HitParticles;
+	
+	
+	UPROPERTY(EditAnywhere, Category = Death)
+	TSubclassOf<ABreakableActor> BreakableSpawn;
+	
+
+	/*
+	UPROPERTY(EditAnywhere, Category = "Death")
+	TSubclassOf<ABreakableActor> BP_Breakable;
+	*/
 	
 };

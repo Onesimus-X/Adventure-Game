@@ -62,9 +62,36 @@ void AEnemy::Die()
 	}
 
 
+	/*
+	if (BP_Breakable)
+	{
+		FTransform SpawnTransform = GetActorTransform();
 
-	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	SetLifeSpan(3.f); // This removes the enemy from the game
+        FActorSpawnParameters Params;
+		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		
+		ABreakableActor* SpawnedBreakable = GetWorld()->SpawnActor<ABreakableActor>(
+			BP_Breakable,
+			SpawnTransform,
+			Params
+		);
+
+	}
+    Destroy();
+	*/
+
+	if (BreakableSpawn)
+	{
+		FVector SpawnLocation = GetActorLocation();
+		FRotator SpawnRotation = GetActorRotation();
+
+		GetWorld()->SpawnActor<ABreakableActor>(BreakableSpawn, SpawnLocation, SpawnRotation);
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Purple, TEXT("Spawned BP_Breakable"));
+	}
+	Destroy();
+
+	//GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	//SetLifeSpan(3.f);
 }
 
 
