@@ -72,6 +72,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = Death)
 	TSubclassOf<ABreakableActor> BreakableSpawn;
 	
+	UPROPERTY()
+	bool bHasDied = false;
 
 	/*
 	UPROPERTY(EditAnywhere, Category = "Death")

@@ -55,11 +55,18 @@ void AEnemy::Die()
 {
 	// TODO: Play Death Montage
 	
-	
+	if (bHasDied)
+	{
+		return; // Prevent double execution
+	}
+	bHasDied = true;
+
 	if (HealthBarWidget)
 	{
 		HealthBarWidget->SetVisibility(false);
 	}
+
+
 
 	if (BreakableSpawn)
 	{
