@@ -42,6 +42,8 @@ protected:
 
 	void Die();
 
+	bool InTargetRange(AActor* Target, double Radius);
+
 private:
 
 	UPROPERTY(VisibleAnywhere)
@@ -55,6 +57,29 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	double CombatRadius = 500.f;
+	
+	
+	/**
+	* Navigation
+	*/
+
+	UPROPERTY()
+	class AAIController* EnemyController;
+
+	// Current patrol target
+	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
+	AActor* PatrolTarget;
+
+	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
+	TArray<AActor*> PatrolTargets;
+
+	UPROPERTY(EditAnywhere)
+	double PatrolRadius = 200.f;
+
+
+	FTimerHandle PatrolTimer;
+	void PatrolTimerFinished();
+
 
 	/**
 	* Animation montages
@@ -75,9 +100,6 @@ private:
 	UPROPERTY()
 	bool bHasDied = false;
 
-	/*
-	UPROPERTY(EditAnywhere, Category = "Death")
-	TSubclassOf<ABreakableActor> BP_Breakable;
-	*/
+
 	
 };
