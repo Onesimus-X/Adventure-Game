@@ -91,8 +91,6 @@ void AEnemy::Die()
 		HealthBarWidget->SetVisibility(false);
 	}
 
-
-
 	if (BreakableSpawn)
 	{
 		FVector SpawnLocation = GetActorLocation();
@@ -118,7 +116,7 @@ bool AEnemy::InTargetRange(AActor* Target, double Radius)
 
 void AEnemy::PatrolTimerFinished()
 {
-
+	//pass
 }
 
 
