@@ -43,8 +43,8 @@ protected:
 	void Die();
 
 	bool InTargetRange(AActor* Target, double Radius);
-
 	void MoveToTarget(AActor* Target);
+	AActor* ChoosePatrolTarget();
 
 private:
 
