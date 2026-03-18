@@ -44,6 +44,8 @@ protected:
 
 	bool InTargetRange(AActor* Target, double Radius);
 
+	void MoveToTarget(AActor* Target);
+
 private:
 
 	UPROPERTY(VisibleAnywhere)
