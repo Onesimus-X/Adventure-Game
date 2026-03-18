@@ -50,7 +50,9 @@ void AEnemy::BeginPlay()
 	}
 
 	EnemyController = Cast<AAIController>(GetController());
-	MoveToTarget(PatrolTarget);
+	//MoveToTarget(PatrolTarget);
+
+	GetWorldTimerManager().SetTimer(PatrolTimer, this, &AEnemy::PatrolTimerFinished, 5.f);
 
 }
 
