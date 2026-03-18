@@ -142,6 +142,22 @@ void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	CheckCombatTarget();
+	CheckPatrolTarget();
+
+}
+
+void AEnemy::CheckPatrolTarget()
+{
+	if (InTargetRange(PatrolTarget, PatrolRadius))
+	{
+		PatrolTarget = ChoosePatrolTarget();
+		GetWorldTimerManager().SetTimer(PatrolTimer, this, &AEnemy::PatrolTimerFinished, 5.f);
+	}
+}
+
+void AEnemy::CheckCombatTarget()
+{
 	if (!InTargetRange(CombatTarget, CombatRadius))
 	{
 		CombatTarget = nullptr;
@@ -149,12 +165,6 @@ void AEnemy::Tick(float DeltaTime)
 		{
 			HealthBarWidget->SetVisibility(false);
 		}
-	}
-
-	if (InTargetRange(PatrolTarget, PatrolRadius))
-	{
-		PatrolTarget = ChoosePatrolTarget();
-		GetWorldTimerManager().SetTimer(PatrolTimer, this, &AEnemy::PatrolTimerFinished, 5.f);
 	}
 }
 
