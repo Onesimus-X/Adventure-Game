@@ -25,6 +25,16 @@ protected:
 
 	virtual void WeaponAttack();
 
+    /**
+    * Play montage functions
+    */
+	virtual void PlayAttackMontage();
+
+	virtual bool CanAttack();
+	
+	UFUNCTION(BlueprintCallable)
+	virtual void AttackEnd();
+
 	UPROPERTY(VisibleAnywhere, Category = Weapon)
 	AWeapon* EquippedWeapon;
 

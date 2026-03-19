@@ -22,6 +22,21 @@ void ABaseCharacter::WeaponAttack()
 	// Override in PlayerCharacter
 }
 
+void ABaseCharacter::PlayAttackMontage()
+{
+	// Override in PlayerCharacter
+}
+
+bool ABaseCharacter::CanAttack()
+{
+	return false;
+}
+
+void ABaseCharacter::AttackEnd()
+{
+	// Override in PlayerCharacter
+}
+
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
