@@ -105,7 +105,7 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 
 void APlayerCharacter::WeaponAttack()
 {
-
+	Super::WeaponAttack();
 	if (CanAttack())
 	{
 		PlayAttackMontage();
@@ -155,6 +155,8 @@ void APlayerCharacter::FinishEquipping()
 
 void APlayerCharacter::PlayAttackMontage()
 {
+	Super::PlayAttackMontage();
+
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && AttackMontage)
 	{

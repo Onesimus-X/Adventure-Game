@@ -30,6 +30,8 @@ public:
 	virtual void GetHit_Implementation(const FVector& ImpactPoint) override;
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+	virtual void Destroyed() override;
+
 
 private:
 
@@ -39,9 +41,8 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UPawnSensingComponent* PawnSensing;
 
-	/**
-    * Animation montages
-    */
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class AWeapon> WeaponClass;
 
 	UPROPERTY(EditAnywhere, Category = Death)
 	TSubclassOf<ABreakableActor> BreakableSpawn;
@@ -63,7 +64,7 @@ private:
 	double CombatRadius = 500.f;
 
 	UPROPERTY(EditAnywhere)
-	double AttackRadius = 150.f;
+	double AttackRadius = 300.f;
 
 	// Current patrol target
 	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
@@ -95,6 +96,9 @@ protected:
 	bool InTargetRange(AActor* Target, double Radius);
 	void MoveToTarget(AActor* Target);
 	AActor* ChoosePatrolTarget();
+	
+	virtual void WeaponAttack() override;
+	virtual void PlayAttackMontage() override;
 
 	UFUNCTION()
 	void PawnSeen(APawn* SeenPawn);
