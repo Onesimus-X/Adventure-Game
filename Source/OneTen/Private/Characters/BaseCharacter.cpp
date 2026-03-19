@@ -17,6 +17,11 @@ void ABaseCharacter::BeginPlay()
 	
 }
 
+void ABaseCharacter::WeaponAttack()
+{
+	// Override in PlayerCharacter
+}
+
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

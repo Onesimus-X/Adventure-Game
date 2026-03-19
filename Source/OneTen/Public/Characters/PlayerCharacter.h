@@ -63,7 +63,7 @@ protected:
 	*/
 
 	void PickUp();
-	void WeaponAttack();
+	virtual void WeaponAttack() override;
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
