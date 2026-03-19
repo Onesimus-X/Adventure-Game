@@ -12,6 +12,8 @@ class UAnimMontage;
 class UAttributeComponent;
 class UHealthBarComponent;
 
+class UPawnSensingComponent;
+
 UCLASS()
 class ONETEN_API AEnemy : public ACharacter, public IHitInterface
 {
@@ -36,10 +38,7 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-	/**
-	* Play montage functions
-	*/
-	void PlayHitReactMontage(const FName& SectionName);
+
 
 	void Die();
 
@@ -47,7 +46,19 @@ protected:
 	void MoveToTarget(AActor* Target);
 	AActor* ChoosePatrolTarget();
 
+	UFUNCTION()
+	void PawnSeen(APawn* SeenPawn);
+
+	/**
+	* Play montage functions
+	*/
+	void PlayHitReactMontage(const FName& SectionName);
+
 private:
+
+	/**
+	*  Components
+	*/
 
 	UPROPERTY(VisibleAnywhere)
 	UAttributeComponent* Attributes;
@@ -55,11 +66,10 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UHealthBarComponent* HealthBarWidget;
 
-	UPROPERTY()
-	AActor* CombatTarget;
+	UPROPERTY(VisibleAnywhere)
+	UPawnSensingComponent* PawnSensing;
 
-	UPROPERTY(EditAnywhere)
-	double CombatRadius = 500.f;
+
 	
 	
 	/**
@@ -68,6 +78,12 @@ private:
 
 	UPROPERTY()
 	class AAIController* EnemyController;
+
+	UPROPERTY()
+	AActor* CombatTarget;
+
+	UPROPERTY(EditAnywhere)
+	double CombatRadius = 500.f;
 
 	// Current patrol target
 	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
