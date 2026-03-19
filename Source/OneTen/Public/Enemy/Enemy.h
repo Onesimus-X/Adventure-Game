@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "Characters/BaseCharacter.h"
 #include "Characters/CharacterTypes.h"
 
 #include "Interfaces/HitInterface.h"
@@ -17,7 +17,7 @@ class UHealthBarComponent;
 class UPawnSensingComponent;
 
 UCLASS()
-class ONETEN_API AEnemy : public ACharacter, public IHitInterface
+class ONETEN_API AEnemy : public ABaseCharacter, public IHitInterface
 {
 	GENERATED_BODY()
 

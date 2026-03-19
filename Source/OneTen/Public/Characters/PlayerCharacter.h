@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "BaseCharacter.h"
 #include "CharacterTypes.h"
 #include "PlayerCharacter.generated.h"
 
@@ -20,7 +20,7 @@ class AWeapon;
 
 
 UCLASS()
-class ONETEN_API APlayerCharacter : public ACharacter
+class ONETEN_API APlayerCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -32,8 +32,7 @@ public:
 	//virtual void Jump() override;
 
 
-	UFUNCTION(BlueprintCallable)
-	void SetWeaponCollisionEnabled(ECollisionEnabled::Type CollisionEnabled);
+
 	
 
 protected:
@@ -109,8 +108,7 @@ private:
 	UPROPERTY(VisibleInstanceOnly)
 	AItem* OverlappingItem;
 
-	UPROPERTY(VisibleAnywhere, Category = Weapon)
-	AWeapon* EquippedWeapon;
+
 
 	/**
 	* Animation montages
