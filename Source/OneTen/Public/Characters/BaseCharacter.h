@@ -32,6 +32,8 @@ protected:
     */
 	virtual void PlayAttackMontage();
     void PlayHitReactMontage(const FName& SectionName);
+	void DirectionalHitReact(const FVector& ImpactPoint);
+	
 	virtual bool CanAttack();
 	
 	UFUNCTION(BlueprintCallable)
