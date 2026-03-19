@@ -88,9 +88,18 @@ private:
 	/** AI behavior */
 	void HideHealthBar();
 	void ShowHealthBar();
+	
+	bool IsOutsideCombatRadius();
+	bool IsOutsideAttackRadius();
+	bool IsInsideAttackRadius();
+	
+	bool IsChasing();
+	bool IsAttacking();
+	
 	void LoseInterest();
 	void StartPatrolling();
-	bool IsOutsideCombatRadius();
+	void ChaseTarget();
+	
 
 	UPROPERTY(EditAnywhere, Category = Combat)
 	float PatrollingSpeed = 125.f;

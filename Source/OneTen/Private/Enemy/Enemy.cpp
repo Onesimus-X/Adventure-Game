@@ -74,9 +74,37 @@ void AEnemy::StartPatrolling()
 	UE_LOG(LogTemp, Warning, TEXT("Start Patrolling"));
 }
 
+void AEnemy::ChaseTarget()
+{
+	EnemyState = EEnemyState::EES_Chasing;
+	GetCharacterMovement()->MaxWalkSpeed = ChasingSpeed;
+	MoveToTarget(CombatTarget);
+	UE_LOG(LogTemp, Warning, TEXT("Chase Target"));
+}
+
 bool AEnemy::IsOutsideCombatRadius()
 {
 	return !InTargetRange(CombatTarget, CombatRadius);
+}
+
+bool AEnemy::IsOutsideAttackRadius()
+{
+	return !InTargetRange(CombatTarget, AttackRadius);
+}
+
+bool AEnemy::IsInsideAttackRadius()
+{
+	return InTargetRange(CombatTarget, AttackRadius);
+}
+
+bool AEnemy::IsChasing()
+{
+	return EnemyState == EEnemyState::EES_Chasing;
+}
+
+bool AEnemy::IsAttacking()
+{
+	return EnemyState == EEnemyState::EES_Attacking;
 }
 
 void AEnemy::BeginPlay()
@@ -249,19 +277,13 @@ void AEnemy::CheckCombatTarget()
 		LoseInterest();
 		StartPatrolling();
 	}
-	else if (!InTargetRange(CombatTarget, AttackRadius) && EnemyState != EEnemyState::EES_Chasing)
+	else if (IsOutsideAttackRadius() && !IsChasing())
 	{
-		// Outside attack range, chase character
-		EnemyState = EEnemyState::EES_Chasing;
-		GetCharacterMovement()->MaxWalkSpeed = 300.f;
-		MoveToTarget(CombatTarget);
-		UE_LOG(LogTemp, Warning, TEXT("Chase Player"));
+		ChaseTarget();
 	}
-	else if (InTargetRange(CombatTarget, AttackRadius) && EnemyState != EEnemyState::EES_Attacking)
+	else if (IsInsideAttackRadius() && !IsAttacking())
 	{
-		// Inside attack range, attack character
 		EnemyState = EEnemyState::EES_Attacking;
-		// TODO: Attack Montage
 		WeaponAttack();
 		UE_LOG(LogTemp, Warning, TEXT("Attack"));
 	}
