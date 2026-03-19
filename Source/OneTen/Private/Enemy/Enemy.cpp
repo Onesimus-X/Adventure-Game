@@ -61,16 +61,6 @@ void AEnemy::BeginPlay()
 	}
 }
 
-void AEnemy::PlayHitReactMontage(const FName& SectionName)
-{
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && HitReactMontage)
-	{
-		AnimInstance->Montage_Play(HitReactMontage);
-		AnimInstance->Montage_JumpToSection(SectionName, HitReactMontage);
-	}
-}
-
 void AEnemy::Die()
 {
 	if (bHasDied)

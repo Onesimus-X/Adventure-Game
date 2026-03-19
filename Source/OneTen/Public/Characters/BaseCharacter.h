@@ -30,7 +30,7 @@ protected:
     * Play montage functions
     */
 	virtual void PlayAttackMontage();
-
+    void PlayHitReactMontage(const FName& SectionName);
 	virtual bool CanAttack();
 	
 	UFUNCTION(BlueprintCallable)
@@ -44,5 +44,8 @@ protected:
     */
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* AttackMontage;
+
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage* HitReactMontage;
 
 };
