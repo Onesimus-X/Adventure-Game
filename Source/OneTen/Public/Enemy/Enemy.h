@@ -85,7 +85,6 @@ private:
 	UPROPERTY(EditAnywhere, Category = "AI Navigation")
 	float WaitMax = 10.f;
 
-	EEnemyState EnemyState = EEnemyState::EES_Patrolling;
 
 protected:
 
@@ -102,6 +101,15 @@ protected:
 
 	UFUNCTION()
 	void PawnSeen(APawn* SeenPawn);
+
+	// Death Pose placeholder
+	/*
+	UPROPERTY(BlueprintReadOnly)
+	EDeathPose DeathPose;
+	*/
+
+	UPROPERTY(BlueprintReadOnly)
+	EEnemyState EnemyState = EEnemyState::EES_Patrolling;
 
 
 };
