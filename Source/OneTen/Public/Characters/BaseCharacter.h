@@ -24,6 +24,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	virtual void WeaponAttack();
+	virtual void Die();
 
     /**
     * Play montage functions
@@ -37,5 +38,11 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = Weapon)
 	AWeapon* EquippedWeapon;
+
+	/**
+    * Animation montages
+    */
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage* AttackMontage;
 
 };

@@ -110,7 +110,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	void Die();
+	virtual void Die() override;
 
 	bool InTargetRange(AActor* Target, double Radius);
 	void MoveToTarget(AActor* Target);

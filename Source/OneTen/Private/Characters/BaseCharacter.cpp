@@ -22,6 +22,11 @@ void ABaseCharacter::WeaponAttack()
 	// Override in PlayerCharacter
 }
 
+void ABaseCharacter::Die()
+{
+	// override in Player & Enemy
+}
+
 void ABaseCharacter::PlayAttackMontage()
 {
 	// Override in PlayerCharacter
