@@ -6,7 +6,6 @@
 #include "Characters/BaseCharacter.h"
 #include "Characters/CharacterTypes.h"
 
-#include "Interfaces/HitInterface.h"
 #include "Breakable/BreakableActor.h"
 #include "Enemy.generated.h"
 
@@ -17,7 +16,7 @@ class UHealthBarComponent;
 class UPawnSensingComponent;
 
 UCLASS()
-class ONETEN_API AEnemy : public ABaseCharacter, public IHitInterface
+class ONETEN_API AEnemy : public ABaseCharacter
 {
 	GENERATED_BODY()
 

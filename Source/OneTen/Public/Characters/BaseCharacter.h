@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/HitInterface.h"
 #include "BaseCharacter.generated.h"
 
 class AWeapon;
 
 UCLASS()
-class ONETEN_API ABaseCharacter : public ACharacter
+class ONETEN_API ABaseCharacter : public ACharacter, public IHitInterface
 {
 	GENERATED_BODY()
 
