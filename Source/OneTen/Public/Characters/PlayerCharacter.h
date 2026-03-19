@@ -15,8 +15,6 @@ class USpringArmComponent;
 class UCameraComponent;
 class AItem;
 class UAnimMontage;
-class AWeapon;
-
 
 
 UCLASS()
@@ -30,10 +28,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	//virtual void Jump() override;
-
-
-
-	
 
 protected:
 
@@ -57,7 +51,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputAction* AttackAction;
 
-
 	/**
 	* Callbacks for input
 	*/
@@ -67,7 +60,6 @@ protected:
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
-
 
 	/**
 	* Play montage functions
@@ -106,10 +98,6 @@ private:
 
 	UPROPERTY(VisibleInstanceOnly)
 	AItem* OverlappingItem;
-
-
-
-
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* EquipMontage;

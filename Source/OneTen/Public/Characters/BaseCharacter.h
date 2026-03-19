@@ -8,6 +8,8 @@
 #include "BaseCharacter.generated.h"
 
 class AWeapon;
+class UAttributeComponent;
+class UAnimMontage;
 
 UCLASS()
 class ONETEN_API ABaseCharacter : public ACharacter, public IHitInterface
@@ -51,4 +53,22 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* HitReactMontage;
 
+	// Place holder for Enemy death montage
+	// UPROPERTY(EditDefaultsOnly, Category = Montages)
+	// UAnimMontage* DeathMontage
+
+	/**
+    *  Components
+    */
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UAttributeComponent * Attributes;
+
+	UPROPERTY(EditAnywhere, Category = Sounds)
+	USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, Category = VisualEffects)
+	UParticleSystem* HitParticles;
+
 };
+

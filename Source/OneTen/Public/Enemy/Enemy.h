@@ -9,10 +9,8 @@
 #include "Breakable/BreakableActor.h"
 #include "Enemy.generated.h"
 
-class UAnimMontage;
-class UAttributeComponent;
-class UHealthBarComponent;
 
+class UHealthBarComponent;
 class UPawnSensingComponent;
 
 UCLASS()
@@ -35,13 +33,6 @@ public:
 
 private:
 
-	/**
-	*  Components
-	*/
-
-	UPROPERTY(VisibleAnywhere)
-	UAttributeComponent* Attributes;
-
 	UPROPERTY(VisibleAnywhere)
 	UHealthBarComponent* HealthBarWidget;
 
@@ -51,12 +42,6 @@ private:
 	/**
     * Animation montages
     */
-
-	UPROPERTY(EditAnywhere, Category = Sounds)
-	USoundBase* HitSound;
-
-	UPROPERTY(EditAnywhere, Category = VisualEffects)
-	UParticleSystem* HitParticles;
 
 	UPROPERTY(EditAnywhere, Category = Death)
 	TSubclassOf<ABreakableActor> BreakableSpawn;
