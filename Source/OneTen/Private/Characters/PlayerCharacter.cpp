@@ -40,6 +40,8 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Tags.Add(FName("PlayerCharacter"));
+
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -76,7 +78,6 @@ void APlayerCharacter::PickUp() // EKeyPressed()
 		}
 	}
 }
-
 
 void APlayerCharacter::Move(const FInputActionValue& Value)
 {
@@ -117,7 +118,6 @@ bool APlayerCharacter::CanAttack()
 	return 	ActionState == EActionState::EAS_Unoccupied &&
 		CharacterState != ECharacterState::ECS_Unequipped;
 }
-
 
 bool APlayerCharacter::CanDisarm()
 {
@@ -191,7 +191,6 @@ void APlayerCharacter::AttackEnd()
 	ActionState = EActionState::EAS_Unoccupied;
 }
 
-
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -213,7 +212,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	}
 
 }
-
 
 void APlayerCharacter::SetWeaponCollisionEnabled(ECollisionEnabled::Type CollisionEnabled)
 {

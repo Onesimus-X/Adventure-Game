@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Characters/CharacterTypes.h"
+
 #include "Interfaces/HitInterface.h"
 #include "Breakable/BreakableActor.h"
 #include "Enemy.generated.h"
@@ -38,8 +40,6 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-
-
 	void Die();
 
 	bool InTargetRange(AActor* Target, double Radius);
@@ -69,9 +69,6 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UPawnSensingComponent* PawnSensing;
 
-
-	
-	
 	/**
 	* Navigation
 	*/
@@ -84,6 +81,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	double CombatRadius = 500.f;
+
+	UPROPERTY(EditAnywhere)
+	double AttackRadius = 150.f;
 
 	// Current patrol target
 	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
@@ -104,6 +104,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "AI Navigation")
 	float WaitMax = 10.f;
 
+	EEnemyState EnemyState = EEnemyState::EES_Patrolling;
+
 
 	/**
 	* Animation montages
@@ -117,12 +119,13 @@ private:
 	UPROPERTY(EditAnywhere, Category = VisualEffects)
 	UParticleSystem* HitParticles;
 	
-	
 	UPROPERTY(EditAnywhere, Category = Death)
 	TSubclassOf<ABreakableActor> BreakableSpawn;
 	
 	UPROPERTY()
 	bool bHasDied = false;
+
+
 
 
 	
