@@ -82,6 +82,14 @@ void AEnemy::ChaseTarget()
 	UE_LOG(LogTemp, Warning, TEXT("Chase Target"));
 }
 
+void AEnemy::StartAttackTimer()
+{
+	EnemyState = EEnemyState::EES_Attacking;
+	const float AttackTime = FMath::RandRange(AttackMin, AttackMax);
+	GetWorldTimerManager().SetTimer(AttackTimer, this, &AEnemy::WeaponAttack, AttackTime);
+	UE_LOG(LogTemp, Warning, TEXT("Attack"));
+}
+
 bool AEnemy::IsOutsideCombatRadius()
 {
 	return !InTargetRange(CombatTarget, CombatRadius);
@@ -283,9 +291,7 @@ void AEnemy::CheckCombatTarget()
 	}
 	else if (IsInsideAttackRadius() && !IsAttacking())
 	{
-		EnemyState = EEnemyState::EES_Attacking;
-		WeaponAttack();
-		UE_LOG(LogTemp, Warning, TEXT("Attack"));
+		StartAttackTimer();
 	}
 }
 

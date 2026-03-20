@@ -99,6 +99,18 @@ private:
 	void LoseInterest();
 	void StartPatrolling();
 	void ChaseTarget();
+
+	/** Combat */
+	void StartAttackTimer();
+
+	FTimerHandle AttackTimer;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	float AttackMin = 0.5f;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	float AttackMax = 1.f;
+
 	
 
 	UPROPERTY(EditAnywhere, Category = Combat)
