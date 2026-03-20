@@ -32,8 +32,10 @@ protected:
 	virtual void PlayAttackMontage();
     void PlayHitReactMontage(const FName& SectionName);
 	void DirectionalHitReact(const FVector& ImpactPoint);
+	
 	void PlayHitSound(const FVector& ImpactPoint);
 	void SpawnHitParticles(const FVector& ImpactPoint);
+	virtual void HandleDamage(float DamageAmount);
 	
 	virtual bool CanAttack();
 	bool IsAlive();
