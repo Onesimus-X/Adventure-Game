@@ -111,9 +111,22 @@ void ABaseCharacter::HandleDamage(float DamageAmount)
 	}
 }
 
+void ABaseCharacter::PlayMontageSection(UAnimMontage* Montage, const FName& SectionName)
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && Montage)
+	{
+		AnimInstance->Montage_Play(AttackMontage);
+		AnimInstance->Montage_JumpToSection(SectionName, Montage);
+	}
+}
+
 void ABaseCharacter::PlayAttackMontage()
 {
-	// Override in PlayerCharacter
+	if (AttackMontageSections.Num() <= 0) return;
+	const int32 MaxSectionIndex = AttackMontageSections.Num() - 1;
+	const int32 Selection = FMath::RandRange(0, MaxSectionIndex);
+	PlayMontageSection(AttackMontage, AttackMontageSections[Selection]);
 }
 
 bool ABaseCharacter::CanAttack()

@@ -133,9 +133,7 @@ protected:
 	AActor* ChoosePatrolTarget();
 	
 	virtual void WeaponAttack() override;
-	virtual void PlayAttackMontage() override;
 	virtual bool CanAttack() override;
-
 	virtual void HandleDamage(float DamageAmount) override;
 
 	UFUNCTION()

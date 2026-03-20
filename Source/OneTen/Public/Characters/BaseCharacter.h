@@ -29,13 +29,15 @@ protected:
 	virtual void WeaponAttack();
 	virtual void Die();
 
-	virtual void PlayAttackMontage();
+	void PlayAttackMontage();
     void PlayHitReactMontage(const FName& SectionName);
 	void DirectionalHitReact(const FVector& ImpactPoint);
 	
 	void PlayHitSound(const FVector& ImpactPoint);
 	void SpawnHitParticles(const FVector& ImpactPoint);
 	virtual void HandleDamage(float DamageAmount);
+
+	void PlayMontageSection(UAnimMontage* Montage, const FName& SectionName);
 	
 	virtual bool CanAttack();
 	bool IsAlive();
@@ -54,6 +56,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* HitReactMontage;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TArray<FName> AttackMontageSections;
 
 	// Place holder for Enemy death montage
 	// UPROPERTY(EditDefaultsOnly, Category = Montages)
