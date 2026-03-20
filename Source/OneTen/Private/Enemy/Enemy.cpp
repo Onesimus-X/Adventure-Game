@@ -59,6 +59,11 @@ void AEnemy::ShowHealthBar()
 	}
 }
 
+void AEnemy::ClearPatrolTimer()
+{
+	GetWorldTimerManager().ClearTimer(PatrolTimer);
+}
+
 void AEnemy::LoseInterest()
 {
 	CombatTarget = nullptr;
@@ -90,6 +95,11 @@ void AEnemy::StartAttackTimer()
 	UE_LOG(LogTemp, Warning, TEXT("Attack"));
 }
 
+void AEnemy::ClearAttackTimer()
+{
+	GetWorldTimerManager().ClearTimer(AttackTimer);
+}
+
 bool AEnemy::IsOutsideCombatRadius()
 {
 	return !InTargetRange(CombatTarget, CombatRadius);
@@ -113,6 +123,16 @@ bool AEnemy::IsChasing()
 bool AEnemy::IsAttacking()
 {
 	return EnemyState == EEnemyState::EES_Attacking;
+}
+
+bool AEnemy::IsDead()
+{
+	return EnemyState == EEnemyState::EES_Dead;
+}
+
+bool AEnemy::IsEngaged()
+{
+	return EnemyState == EEnemyState::EES_Engaged;
 }
 
 void AEnemy::BeginPlay()
@@ -233,19 +253,17 @@ void AEnemy::PlayAttackMontage()
 
 void AEnemy::PawnSeen(APawn* SeenPawn)
 {
-	if (EnemyState == EEnemyState::EES_Chasing) return;
-	if (SeenPawn->ActorHasTag(FName("PlayerCharacter")))
+	const bool bShouldChaseTarget =
+		EnemyState != EEnemyState::EES_Dead &&
+		EnemyState != EEnemyState::EES_Chasing &&
+		EnemyState < EEnemyState::EES_Attacking &&
+		SeenPawn->ActorHasTag(FName("PlayerCharacter"));
+
+	if (bShouldChaseTarget)
 	{
-		GetWorldTimerManager().ClearTimer(PatrolTimer);
-		GetCharacterMovement()->MaxWalkSpeed = 300.f;
 		CombatTarget = SeenPawn;
-		
-		if (EnemyState != EEnemyState::EES_Attacking)
-		{
-			EnemyState = EEnemyState::EES_Chasing;
-			MoveToTarget(CombatTarget);
-			UE_LOG(LogTemp, Warning, TEXT("Pawn Seen, Chase Player"));
-		}
+		ClearPatrolTimer();
+		ChaseTarget();
 	}
 }
 
@@ -257,7 +275,7 @@ void AEnemy::PatrolTimerFinished()
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (IsDead()) return;
 	if (EnemyState > EEnemyState::EES_Patrolling)
 	{
         CheckCombatTarget();
@@ -282,15 +300,18 @@ void AEnemy::CheckCombatTarget()
 {
 	if (IsOutsideCombatRadius())
 	{
+		ClearAttackTimer();
 		LoseInterest();
-		StartPatrolling();
+		if (!IsEngaged()) StartPatrolling();
 	}
 	else if (IsOutsideAttackRadius() && !IsChasing())
 	{
-		ChaseTarget();
+		ClearAttackTimer();
+		if (!IsEngaged()) ChaseTarget();
 	}
 	else if (IsInsideAttackRadius() && !IsAttacking())
 	{
+		ClearAttackTimer();
 		StartAttackTimer();
 	}
 }

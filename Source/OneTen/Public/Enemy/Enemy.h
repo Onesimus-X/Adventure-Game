@@ -88,6 +88,7 @@ private:
 	/** AI behavior */
 	void HideHealthBar();
 	void ShowHealthBar();
+	void ClearPatrolTimer();
 	
 	bool IsOutsideCombatRadius();
 	bool IsOutsideAttackRadius();
@@ -95,14 +96,16 @@ private:
 	
 	bool IsChasing();
 	bool IsAttacking();
-	
+	bool IsDead();
+	bool IsEngaged();
+
 	void LoseInterest();
 	void StartPatrolling();
 	void ChaseTarget();
 
 	/** Combat */
 	void StartAttackTimer();
-
+	void ClearAttackTimer();
 	FTimerHandle AttackTimer;
 
 	UPROPERTY(EditAnywhere, Category = Combat)
