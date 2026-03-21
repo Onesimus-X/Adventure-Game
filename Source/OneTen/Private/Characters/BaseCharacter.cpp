@@ -5,6 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Items/Weapons/Weapon.h"
 
+#include "Components/CapsuleComponent.h"
 #include "Components/AttributeComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -116,7 +117,7 @@ void ABaseCharacter::PlayMontageSection(UAnimMontage* Montage, const FName& Sect
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && Montage)
 	{
-		AnimInstance->Montage_Play(AttackMontage);
+		AnimInstance->Montage_Play(Montage);
 		AnimInstance->Montage_JumpToSection(SectionName, Montage);
 	}
 }
@@ -141,6 +142,11 @@ int32 ABaseCharacter::PlayDeathMontage()
 	return PlayRandomMontageSection(DeathMontage, DeathMontageSections);
 }
 */
+
+void ABaseCharacter::DisableCapsule()
+{
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
 
 bool ABaseCharacter::CanAttack()
 {

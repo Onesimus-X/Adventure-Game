@@ -6,13 +6,13 @@
 #include "Navigation/PathFollowingComponent.h"
 
 #include "Components/SkeletalMeshComponent.h"
-#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 #include "Perception/PawnSensingComponent.h"
 #include "Components/AttributeComponent.h"
 #include "HUD/HealthBarComponent.h"
 
+#include "Components/CapsuleComponent.h"
 #include "Items/Weapons/Weapon.h"
 #include "Kismet/KismetSystemLibrary.h"
 

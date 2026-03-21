@@ -45,6 +45,7 @@ protected:
 	// Placeholder for deathMontage
 	// virtual int32 PlayDeathMontage();
 
+	void DisableCapsule();
 
 	virtual bool CanAttack();
 	bool IsAlive();

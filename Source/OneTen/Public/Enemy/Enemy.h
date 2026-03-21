@@ -113,8 +113,6 @@ private:
 	UPROPERTY(EditAnywhere, Category = Combat)
 	float AttackMax = 1.f;
 
-	
-
 	UPROPERTY(EditAnywhere, Category = Combat)
 	float PatrollingSpeed = 125.f;
 	
@@ -138,6 +136,9 @@ protected:
 
 	// DeathMontage Placeholder
 	//virtual int32 PlayDeathMontage() override;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	float DeathLifeSpan = 8.f;
 
 	UFUNCTION()
 	void PawnSeen(APawn* SeenPawn);
