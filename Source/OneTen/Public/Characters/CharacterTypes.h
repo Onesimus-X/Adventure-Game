@@ -24,6 +24,8 @@ enum class EDeathPose : unit8
 {
 	EDP_Alive UMETA(DiplayName = "Alive"),
 	EDP_Death1 UMETA(DiplayName = "Death1")
+
+	EDP MAX UMETA(DisplayName = "DefaultMAX")
 };
 */
 

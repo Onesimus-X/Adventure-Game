@@ -246,6 +246,22 @@ void AEnemy::HandleDamage(float DamageAmount)
 
 }
 
+//Death Montage placeholder
+/*
+int32 AEnemy::PlayDeathMontage()
+{
+	const int32 Selection = Super::PlayDeathMontage();
+	TEnumAsByte<EDeathPose> Pose(Selection);
+	if (Pose < EDeathPose::EDP_MAX)
+	{
+	    DeathPose = Pose;
+	}
+
+	return Selection;
+}
+*/
+
+
 void AEnemy::PawnSeen(APawn* SeenPawn)
 {
 	const bool bShouldChaseTarget =

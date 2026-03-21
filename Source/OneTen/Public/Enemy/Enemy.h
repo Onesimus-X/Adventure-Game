@@ -136,13 +136,16 @@ protected:
 	virtual bool CanAttack() override;
 	virtual void HandleDamage(float DamageAmount) override;
 
+	// DeathMontage Placeholder
+	//virtual int32 PlayDeathMontage() override;
+
 	UFUNCTION()
 	void PawnSeen(APawn* SeenPawn);
 
 	// Death Pose placeholder
 	/*
 	UPROPERTY(BlueprintReadOnly)
-	EDeathPose DeathPose;
+	TEnumAsByte<EDeathPose> DeathPose;
 	*/
 
 	UPROPERTY(BlueprintReadOnly)
