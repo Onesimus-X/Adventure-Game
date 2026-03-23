@@ -36,25 +36,34 @@ void AWeapon::BeginPlay()
 	WeaponBox->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::OnBoxOverlap);
 }
 
-
-
 void AWeapon::Equip(USceneComponent* InParent, FName InSocketName, AActor* NewOwner, APawn* NewInstigator)
 {
 	SetOwner(NewOwner);
 	SetInstigator(NewInstigator);
 	AttachMeshToSocket(InParent, InSocketName);
 	ItemState = EItemState::EIS_Equipped;
+	//DiableSphereCollision();  This doesn't exist in Weapon.h or Weapon.cpp  Maybe in Item?
+	PlayEquipSound(); // This doesn't seem to be connected to anything
+	DeactivateEmbers();
+}
+
+void AWeapon::DeactivateEmbers()
+{
+	if (EmbersEffect)
+	{
+		EmbersEffect->Deactivate();
+	}
+}
+
+void AWeapon::PlayEquipSound()
+{
 	if (PickupSound)
 	{
 		UGameplayStatics::PlaySoundAtLocation(
 			this,
-			PickupSound,
+			PickupSound, // This doesn't seem to be connected to anything
 			GetActorLocation()
 		);
-	}
-	if (EmbersEffect)
-	{
-		EmbersEffect->Deactivate();
 	}
 }
 
@@ -64,7 +73,8 @@ void AWeapon::AttachMeshToSocket(USceneComponent* InParent, const FName& InSocke
 	ItemMesh->AttachToComponent(InParent, TransformRules, InSocketName);
 }
 
-
+//These overlaps allow us to pick up the weapon without the E key or Y button
+//like a regular item.
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	Super::OnSphereOverlap(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
@@ -77,6 +87,28 @@ void AWeapon::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 
 void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	FHitResult BoxHit;
+	BoxTrace(BoxHit);
+
+	if (BoxHit.GetActor())
+	{
+		UGameplayStatics::ApplyDamage(BoxHit.GetActor(), Damage, GetInstigator()->GetController(), this, UDamageType::StaticClass());
+		ExecuteGitHit(BoxHit);
+		CreateFields(BoxHit.ImpactPoint);
+	}
+}
+
+void AWeapon::ExecuteGitHit(FHitResult& BoxHit)
+{
+	IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
+	if (HitInterface)
+	{
+		HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
+	}
+}
+
+void AWeapon::BoxTrace(FHitResult& BoxHit)
+{
 	const FVector Start = BoxTraceStart->GetComponentLocation();
 	const FVector End = BoxTraceEnd->GetComponentLocation();
 
@@ -88,45 +120,18 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		ActorsToIgnore.AddUnique(Actor);
 	}
 
-	FHitResult BoxHit;
-
 	UKismetSystemLibrary::BoxTraceSingle(
 		this,
 		Start,
 		End,
-		FVector(5.f, 5.f, 5.f), // Box half size
+		BoxTraceExtent,
 		BoxTraceStart->GetComponentRotation(),
 		ETraceTypeQuery::TraceTypeQuery1,
 		false,
-		ActorsToIgnore, //TArray above
-		EDrawDebugTrace::None,
+		ActorsToIgnore,
+		bShowBoxDebug ? EDrawDebugTrace::ForDuration : EDrawDebugTrace::None,
 		BoxHit,
-		true //Ignore self, which is also what ActorsToIgnore is doing. This is a required input bool to enter anyway.
+		true
 	);
-	
-	if (BoxHit.GetActor())
-	{
-
-			UGameplayStatics::ApplyDamage(
-			BoxHit.GetActor(),
-			Damage,
-			GetInstigator()->GetController(),
-			this,
-			UDamageType::StaticClass()
-		);	
-        
-
-		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
-		if (HitInterface)
-		{
-			HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
-		}
-		IgnoreActors.AddUnique(BoxHit.GetActor());
-
-		CreateFields(BoxHit.ImpactPoint);
-	}
-	
-
-
-
+	IgnoreActors.AddUnique(BoxHit.GetActor());
 }
