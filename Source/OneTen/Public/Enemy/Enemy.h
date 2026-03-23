@@ -42,15 +42,13 @@ protected:
 	
 	virtual void WeaponAttack() override;
 	virtual bool CanAttack() override;
+	virtual void AttackEnd() override;
 	virtual void HandleDamage(float DamageAmount) override;
 
 	// DeathMontage Placeholder
 	//virtual int32 PlayDeathMontage() override;
     
-	virtual void AttackEnd() override;
-	
 	/** </ABaseCharacter> */
-
 
 	// Death Pose placeholder
 	//UPROPERTY(BlueprintReadOnly)
@@ -63,26 +61,30 @@ protected:
 private:
 
 	/** AI Behavior  */
+	void InitializeEnemy();
+
 	void CheckPatrolTarget();
 	void CheckCombatTarget();
 	void PatrolTimerFinished();
 
+	
 	void HideHealthBar();
 	void ShowHealthBar();
-	void ClearPatrolTimer();
+	
+	void LoseInterest();
+	void StartPatrolling();
+	void ChaseTarget();
 
 	bool IsOutsideCombatRadius();
 	bool IsOutsideAttackRadius();
 	bool IsInsideAttackRadius();
-
+	
 	bool IsChasing();
 	bool IsAttacking();
+	
 	bool IsDead();
 	bool IsEngaged();
-
-	void LoseInterest();
-	void StartPatrolling();
-	void ChaseTarget();
+	void ClearPatrolTimer();
 
 	void StartAttackTimer();
 	void ClearAttackTimer();
@@ -90,7 +92,8 @@ private:
 	bool InTargetRange(AActor* Target, double Radius);
 	void MoveToTarget(AActor* Target);
 	AActor* ChoosePatrolTarget();
-
+	void SpawnDefaultWeapon();
+	
 	UFUNCTION()
 	void PawnSeen(APawn* SeenPawn); // Callback for OnPawnSeen in UPawnSensingComponent
 

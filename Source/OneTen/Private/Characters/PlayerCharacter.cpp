@@ -13,7 +13,7 @@
 #include "Items/Item.h"
 #include "Items/Weapons/Weapon.h"
 #include "Animation/AnimMontage.h"
-#include "Components/BoxComponent.h"
+//#include "Components/BoxComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
