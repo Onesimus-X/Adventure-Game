@@ -25,9 +25,7 @@ class ONETEN_API APlayerCharacter : public ABaseCharacter
 public:
 
 	APlayerCharacter();
-	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	//virtual void Jump() override;
 
 protected:
 
@@ -62,22 +60,26 @@ protected:
 	void Look(const FInputActionValue& Value);
 	
 	/** Combat */
+	void EquipWeapon(AWeapon* Weapon);
 	virtual void AttackEnd() override;
 	virtual bool CanAttack() override;
 
-	void PlayEquipMontage(const FName& SectionName);
+	
 	bool CanDisarm();
 	bool CanArm();
-
-	UFUNCTION(BlueprintCallable)
 	void Disarm();
-
-	UFUNCTION(BlueprintCallable)
 	void Arm();
 
 	UFUNCTION(BlueprintCallable)
-	void FinishEquipping();
+	void AttachWeaponToBack();
 
+	UFUNCTION(BlueprintCallable)
+	void AttachWeaponToHand();
+
+	void PlayEquipMontage(const FName& SectionName);
+
+	UFUNCTION(BlueprintCallable)
+	void FinishEquipping();
 
 private:
 	
@@ -105,3 +107,5 @@ public:
 	FORCEINLINE ECharacterState GetCharacterState() const { return CharacterState; }
 
 };
+
+
