@@ -71,6 +71,7 @@ void AWeapon::AttachMeshToSocket(USceneComponent* InParent, const FName& InSocke
 {
 	FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget, true);
 	ItemMesh->AttachToComponent(InParent, TransformRules, InSocketName);
+	//AttachToComponent(InParent, TransformRules, InSocketName);
 }
 
 //These overlaps allow us to pick up the weapon without the E key or Y button

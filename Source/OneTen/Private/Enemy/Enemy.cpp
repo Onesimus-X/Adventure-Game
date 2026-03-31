@@ -98,6 +98,13 @@ void AEnemy::Die()
 	{
 		HealthBarWidget->SetVisibility(false);
 	}
+	UE_LOG(LogTemp, Warning, TEXT("Weapon mesh parent: %s"), *EquippedWeapon->GetRootComponent()->GetAttachParent()->GetName());
+
+	if (EquippedWeapon)
+	{
+		EquippedWeapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+		EquippedWeapon->Destroy();
+	}
 
 	if (BreakableSpawn)
 	{
@@ -108,6 +115,7 @@ void AEnemy::Die()
 		GetWorld()->SpawnActor<ABreakableActor>(BreakableSpawn, SpawnLocation, SpawnRotation);
 	}
 	Destroy();
+
 }
 
 void AEnemy::WeaponAttack()
