@@ -117,7 +117,7 @@ void AWeapon::ExecuteGitHit(FHitResult& BoxHit)
 	IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
 	if (HitInterface)
 	{
-		HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
+		HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint, GetOwner());
 	}
 }
 

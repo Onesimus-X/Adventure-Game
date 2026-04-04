@@ -56,10 +56,11 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
-void APlayerCharacter::GetHit_Implementation(const FVector& ImpactPoint)
+void APlayerCharacter::GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter)
 {
-	Super::GetHit_Implementation(ImpactPoint);
+	Super::GetHit_Implementation(ImpactPoint, Hitter);
 
+	SetWeaponCollisionEnabled(ECollisionEnabled::NoCollision);
 	ActionState = EActionState::EAS_HitReaction;
 }
 
