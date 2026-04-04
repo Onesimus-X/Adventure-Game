@@ -59,6 +59,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::GetHit_Implementation(const FVector& ImpactPoint)
 {
 	Super::GetHit_Implementation(ImpactPoint);
+
+	ActionState = EActionState::EAS_HitReaction;
 }
 
 void APlayerCharacter::BeginPlay()
@@ -204,6 +206,11 @@ void APlayerCharacter::PlayEquipMontage(const FName& SectionName)
 }
 
 void APlayerCharacter::FinishEquipping()
+{
+	ActionState = EActionState::EAS_Unoccupied;
+}
+
+void APlayerCharacter::HitReactEnd()
 {
 	ActionState = EActionState::EAS_Unoccupied;
 }
