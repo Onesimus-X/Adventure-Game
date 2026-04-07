@@ -63,9 +63,19 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+void APlayerCharacter::Jump()
+{
+	if (IsUnoccupied())
+	{
+		Super::Jump();
+	}
+	
+}
+
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	HandleDamage(DamageAmount);
+	SetHUDHealth();
 	return DamageAmount;
 }
 
@@ -232,6 +242,11 @@ void APlayerCharacter::HitReactEnd()
 	ActionState = EActionState::EAS_Unoccupied;
 }
 
+bool APlayerCharacter::IsUnoccupied()
+{
+	return ActionState == EActionState::EAS_Unoccupied;
+}
+
 void APlayerCharacter::InitializePlayerOverlay()
 {
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
@@ -252,4 +267,11 @@ void APlayerCharacter::InitializePlayerOverlay()
 	}
 }
 
+void APlayerCharacter::SetHUDHealth()
+{
+	if (PlayerOverlay && Attributes)
+	{
+		PlayerOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
+	}
+}
 

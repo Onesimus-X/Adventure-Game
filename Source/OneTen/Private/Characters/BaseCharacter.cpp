@@ -149,12 +149,10 @@ int32 ABaseCharacter::PlayAttackMontage()
 	return PlayRandomMontageSection(AttackMontage, AttackMontageSections);
 }
 
-/* Placeholder for DeathMontage
 int32 ABaseCharacter::PlayDeathMontage()
 {
 	return PlayRandomMontageSection(DeathMontage, DeathMontageSections);
 }
-*/
 
 void ABaseCharacter::DisableCapsule()
 {

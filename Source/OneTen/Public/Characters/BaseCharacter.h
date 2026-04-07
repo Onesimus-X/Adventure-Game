@@ -34,7 +34,7 @@ protected:
 	bool IsAlive();
 	void PlayHitReactMontage(const FName& SectionName);
 	virtual int32 PlayAttackMontage();
-	// virtual int32 PlayDeathMontage();
+	virtual int32 PlayDeathMontage();
 	
 	UFUNCTION(BlueprintCallable)
 	virtual void AttackEnd();
@@ -64,14 +64,14 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Combat)
 	UAnimMontage* HitReactMontage;
 
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	UAnimMontage* DeathMontage;
+
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TArray<FName> AttackMontageSections;
 
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TArray<FName> DeathMontageSections;
-
-	// UPROPERTY(EditDefaultsOnly, Category = Combat)
-	// UAnimMontage* DeathMontage
 
 };
 
