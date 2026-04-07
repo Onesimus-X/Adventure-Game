@@ -115,8 +115,10 @@ void AEnemy::Die()
 
 void AEnemy::WeaponAttack()
 {
+    Super::WeaponAttack();
+	if (CombatTarget == nullptr) return;
+
 	EnemyState = EEnemyState::EES_Engaged;
-	Super::WeaponAttack();
 	PlayAttackMontage();
 }
 
@@ -146,21 +148,6 @@ void AEnemy::HandleDamage(float DamageAmount)
 
 
 }
-
-//Death Montage placeholder
-/*
-int32 AEnemy::PlayDeathMontage()
-{
-	const int32 Selection = Super::PlayDeathMontage();
-	TEnumAsByte<EDeathPose> Pose(Selection);
-	if (Pose < EDeathPose::EDP_MAX)
-	{
-		DeathPose = Pose;
-	}
-
-	return Selection;
-}
-*/
 
 void AEnemy::InitializeEnemy()
 {

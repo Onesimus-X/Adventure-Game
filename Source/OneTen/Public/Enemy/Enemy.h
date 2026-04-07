@@ -44,19 +44,11 @@ protected:
 	virtual bool CanAttack() override;
 	virtual void AttackEnd() override;
 	virtual void HandleDamage(float DamageAmount) override;
-
-	// DeathMontage Placeholder
-	//virtual int32 PlayDeathMontage() override;
     
 	/** </ABaseCharacter> */
 
-	// Death Pose placeholder
-	//UPROPERTY(BlueprintReadOnly)
-	//TEnumAsByte<EDeathPose> DeathPose;
-
 	UPROPERTY(BlueprintReadOnly)
 	EEnemyState EnemyState = EEnemyState::EES_Patrolling;
-
 
 private:
 
@@ -108,9 +100,6 @@ private:
 
 	UPROPERTY()
 	class AAIController* EnemyController;
-
-	UPROPERTY()
-	AActor* CombatTarget;
 
 	UPROPERTY(EditAnywhere, Category = Enemy)
 	double CombatRadius = 1000.f;

@@ -15,8 +15,6 @@ void UPlayerAnimInstance::NativeInitializeAnimation()
     {
         PlayerCharacterMovement = PlayerCharacter->GetCharacterMovement();
     }
-    
-
 }
 
 void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTime)
@@ -28,5 +26,7 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTime)
         GroundSpeed = UKismetMathLibrary::VSizeXY(PlayerCharacterMovement->Velocity);
         IsFalling = PlayerCharacterMovement->IsFalling();
         CharacterState = PlayerCharacter->GetCharacterState();
+        ActionState = PlayerCharacter->GetActionState();
+        DeathPose = PlayerCharacter->GetDeathPose();
     }
 }

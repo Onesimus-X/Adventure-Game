@@ -30,16 +30,12 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void Jump() override;
 
-
-
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 	virtual void GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter) override;
 
 protected:
 
 	virtual void BeginPlay() override;
-
-	
 
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputMappingContext* PlayerContext;
@@ -73,20 +69,19 @@ protected:
 	void EquipWeapon(AWeapon* Weapon);
 	virtual void AttackEnd() override;
 	virtual bool CanAttack() override;
-
 	
 	bool CanDisarm();
 	bool CanArm();
 	void Disarm();
 	void Arm();
+	void PlayEquipMontage(const FName& SectionName);
+	virtual void Die() override;
 
 	UFUNCTION(BlueprintCallable)
 	void AttachWeaponToBack();
 
 	UFUNCTION(BlueprintCallable)
 	void AttachWeaponToHand();
-
-	void PlayEquipMontage(const FName& SectionName);
 
 	UFUNCTION(BlueprintCallable)
 	void FinishEquipping();
@@ -125,7 +120,7 @@ private:
 public:
 	FORCEINLINE void SetOverlappingItem(AItem* Item) { OverlappingItem = Item; }
 	FORCEINLINE ECharacterState GetCharacterState() const { return CharacterState; }
-
+	FORCEINLINE EActionState GetActionState() const { return ActionState;  }
 };
 
 

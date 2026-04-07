@@ -84,7 +84,11 @@ void APlayerCharacter::GetHit_Implementation(const FVector& ImpactPoint, AActor*
 	Super::GetHit_Implementation(ImpactPoint, Hitter);
 
 	SetWeaponCollisionEnabled(ECollisionEnabled::NoCollision);
-	ActionState = EActionState::EAS_HitReaction;
+	if (Attributes && Attributes->GetHealthPercent() > 0.f)
+	{
+		ActionState = EActionState::EAS_HitReaction;
+	}
+	//Die function sets to Dead State if health percent is at 0
 }
 
 void APlayerCharacter::BeginPlay()
@@ -230,6 +234,14 @@ void APlayerCharacter::PlayEquipMontage(const FName& SectionName)
 		AnimInstance->Montage_Play(EquipMontage);
 		AnimInstance->Montage_JumpToSection(SectionName, EquipMontage);
 	}
+}
+
+void APlayerCharacter::Die()
+{
+	Super::Die();
+
+	ActionState = EActionState::EAS_Dead;
+	DisableMeshCollision();
 }
 
 void APlayerCharacter::FinishEquipping()
