@@ -13,7 +13,7 @@ void UPlayerOverlay::SetHealthBarPercent(float Percent)
 	}
 }
 
-void UPlayerOverlay::SetStaminBarPercent(float Percent)
+void UPlayerOverlay::SetStaminaBarPercent(float Percent)
 {
 	if (StaminaProgressBar)
 	{

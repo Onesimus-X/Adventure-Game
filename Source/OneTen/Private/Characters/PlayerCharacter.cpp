@@ -8,11 +8,18 @@
 
 #include "Components/InputComponent.h"
 #include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
+#include "Components/AttributeComponent.h"
 
+
+#include "EnhancedInputSubsystems.h"
 #include "Items/Item.h"
 #include "Items/Weapons/Weapon.h"
+
 #include "Animation/AnimMontage.h"
+#include "HUD/PlayerHUD.h"
+#include "HUD/PlayerOverlay.h"
+
+
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -83,6 +90,9 @@ void APlayerCharacter::BeginPlay()
 			Subsystem->AddMappingContext(PlayerContext, 0);
 		}
 	}
+
+
+	InitializePlayerOverlay();
 
 }
 
@@ -220,6 +230,26 @@ void APlayerCharacter::FinishEquipping()
 void APlayerCharacter::HitReactEnd()
 {
 	ActionState = EActionState::EAS_Unoccupied;
+}
+
+void APlayerCharacter::InitializePlayerOverlay()
+{
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerController->GetHUD());
+		if (PlayerHUD)
+		{
+			PlayerOverlay = PlayerHUD->GetPlayerOverlay();
+			if (PlayerOverlay && Attributes)
+			{
+				PlayerOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
+				PlayerOverlay->SetStaminaBarPercent(1.f);
+				PlayerOverlay->SetGold(0);
+				PlayerOverlay->SetSouls(0);
+			}
+		}
+	}
 }
 
 

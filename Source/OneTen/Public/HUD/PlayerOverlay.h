@@ -16,7 +16,7 @@ class ONETEN_API UPlayerOverlay : public UUserWidget
 public:
 
 	void SetHealthBarPercent(float Percent);
-	void SetStaminBarPercent(float Percent);
+	void SetStaminaBarPercent(float Percent);
 
 	void SetGold(int32 Gold);
 	void SetSouls(int32 Souls);

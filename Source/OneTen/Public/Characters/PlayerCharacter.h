@@ -16,6 +16,8 @@ class UCameraComponent;
 class AItem;
 class UAnimMontage;
 
+class UPlayerOverlay;
+
 
 UCLASS()
 class ONETEN_API APlayerCharacter : public ABaseCharacter
@@ -32,6 +34,8 @@ public:
 protected:
 
 	virtual void BeginPlay() override;
+
+	
 
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputMappingContext* PlayerContext;
@@ -87,6 +91,8 @@ protected:
 	void HitReactEnd();
 
 private:
+
+	void InitializePlayerOverlay();
 	
 	/** Character Components */
 
@@ -106,6 +112,9 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	EActionState ActionState = EActionState::EAS_Unoccupied;
+
+	UPROPERTY()
+	UPlayerOverlay* PlayerOverlay;
 
 public:
 	FORCEINLINE void SetOverlappingItem(AItem* Item) { OverlappingItem = Item; }
