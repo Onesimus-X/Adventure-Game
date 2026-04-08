@@ -72,9 +72,6 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Weapon Properties")
 	float Damage = 20.f;
 
-	UPROPERTY(EditAnywhere, Category = Sounds)
-	USoundBase* PickupSound; //This doesn't seem to be connected to anything
-
 public:
 	FORCEINLINE UBoxComponent* GetWeaponBox() const { return WeaponBox; }
 	

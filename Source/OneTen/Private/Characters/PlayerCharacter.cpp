@@ -91,6 +91,16 @@ void APlayerCharacter::GetHit_Implementation(const FVector& ImpactPoint, AActor*
 	//Die function sets to Dead State if health percent is at 0
 }
 
+void APlayerCharacter::SetOverlappingItem(AItem* Item)
+{
+	OverlappingItem = Item;
+}
+
+void APlayerCharacter::AddSouls(ASoul* Soul)
+{
+	UE_LOG(LogTemp, Warning, TEXT("APlayerCharacter::AddSouls"));
+}
+
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();

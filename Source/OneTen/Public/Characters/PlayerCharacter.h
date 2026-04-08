@@ -6,6 +6,7 @@
 #include "InputActionValue.h"
 #include "BaseCharacter.h"
 #include "CharacterTypes.h"
+#include "Interfaces/PickupInterface.h"
 #include "PlayerCharacter.generated.h"
 
 class UInputMappingContext;
@@ -14,13 +15,14 @@ class USpringArmComponent;
 
 class UCameraComponent;
 class AItem;
+class ASoul;
 class UAnimMontage;
-
 class UPlayerOverlay;
 
 
+
 UCLASS()
-class ONETEN_API APlayerCharacter : public ABaseCharacter
+class ONETEN_API APlayerCharacter : public ABaseCharacter, public  IPickupInterface
 {
 	GENERATED_BODY()
 
@@ -32,6 +34,9 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 	virtual void GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter) override;
+	virtual void SetOverlappingItem(AItem* Item) override;
+
+	virtual void AddSouls(ASoul* Soul) override;
 
 protected:
 
@@ -118,7 +123,6 @@ private:
 	UPlayerOverlay* PlayerOverlay;
 
 public:
-	FORCEINLINE void SetOverlappingItem(AItem* Item) { OverlappingItem = Item; }
 	FORCEINLINE ECharacterState GetCharacterState() const { return CharacterState; }
 	FORCEINLINE EActionState GetActionState() const { return ActionState;  }
 };
