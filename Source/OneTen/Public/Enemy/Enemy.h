@@ -39,6 +39,7 @@ protected:
 
 	/** <ABaseCharacter> */
 	virtual void Die() override;
+	void SpawnSoul();
 	
 	virtual void WeaponAttack() override;
 	virtual bool CanAttack() override;
@@ -150,6 +151,8 @@ private:
 	TSubclassOf<ABreakableActor> BreakableSpawn;
 	/** Breakable Enemy Death */
 
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TSubclassOf<class ASoul> SoulClass;
 };
 
 

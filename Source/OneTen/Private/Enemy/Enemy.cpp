@@ -4,13 +4,16 @@
 #include "Enemy/Enemy.h"
 #include "AIController.h"
 #include "Navigation/PathFollowingComponent.h"
+
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Perception/PawnSensingComponent.h"
+
 #include "Components/AttributeComponent.h"
 #include "HUD/HealthBarComponent.h"
 #include "Items/Weapons/Weapon.h"
 
+#include "Items/Soul.h"
 
 AEnemy::AEnemy()
 {
@@ -109,8 +112,27 @@ void AEnemy::Die()
 
 		GetWorld()->SpawnActor<ABreakableActor>(BreakableSpawn, SpawnLocation, SpawnRotation);
 	}
+	
+	SpawnSoul();
+
 	Destroy();
 
+}
+
+void AEnemy::SpawnSoul()
+{
+	//This is similar to spawning the breakable. How much of this could be the same code?
+	UWorld* World = GetWorld();
+	if (World && SoulClass && Attributes)
+	{
+		const FVector SpawnLocation = GetActorLocation() + FVector(0.f, 0.f, 30.f);
+		ASoul* SpawnedSoul = World->SpawnActor<ASoul>(SoulClass, SpawnLocation, GetActorRotation());
+		//ASoul* SpawnedSoul = World->SpawnActor<ASoul>(SoulClass, GetActorLocation(), GetActorRotation());
+		if (SpawnedSoul)
+		{
+			SpawnedSoul->SetSouls(Attributes->GetSouls());
+		}
+	}
 }
 
 void AEnemy::WeaponAttack()
