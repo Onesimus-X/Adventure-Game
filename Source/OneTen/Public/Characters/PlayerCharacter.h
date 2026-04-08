@@ -12,10 +12,12 @@
 class UInputMappingContext;
 class UInputAction;
 class USpringArmComponent;
-
 class UCameraComponent;
+
 class AItem;
 class ASoul;
+class ATreasure;
+
 class UAnimMontage;
 class UPlayerOverlay;
 
@@ -37,6 +39,7 @@ public:
 	virtual void SetOverlappingItem(AItem* Item) override;
 
 	virtual void AddSouls(ASoul* Soul) override;
+	virtual void AddGold(ATreasure* Treasure) override;
 
 protected:
 

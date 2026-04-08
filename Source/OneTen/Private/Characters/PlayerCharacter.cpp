@@ -10,7 +10,6 @@
 #include "EnhancedInputComponent.h"
 #include "Components/AttributeComponent.h"
 
-
 #include "EnhancedInputSubsystems.h"
 #include "Items/Item.h"
 #include "Items/Weapons/Weapon.h"
@@ -18,6 +17,9 @@
 #include "Animation/AnimMontage.h"
 #include "HUD/PlayerHUD.h"
 #include "HUD/PlayerOverlay.h"
+
+#include "Items/Soul.h"
+#include "Items/Treasure.h"
 
 
 
@@ -98,7 +100,20 @@ void APlayerCharacter::SetOverlappingItem(AItem* Item)
 
 void APlayerCharacter::AddSouls(ASoul* Soul)
 {
-	UE_LOG(LogTemp, Warning, TEXT("APlayerCharacter::AddSouls"));
+	if (Attributes && PlayerOverlay)
+	{
+		Attributes->AddSouls(Soul->GetSouls());
+		PlayerOverlay->SetSouls(Attributes->GetSouls());
+	}
+}
+
+void APlayerCharacter::AddGold(ATreasure* Treasure)
+{
+	if (Attributes && PlayerOverlay)
+	{
+		Attributes->AddGold(Treasure->GetGold());
+		PlayerOverlay->SetGold(Attributes->GetGold());
+	}
 }
 
 void APlayerCharacter::BeginPlay()
