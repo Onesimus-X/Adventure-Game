@@ -61,6 +61,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Triggered, this, &APlayerCharacter::PickUp);
 		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &APlayerCharacter::WeaponAttack);
+		EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Dodge);
 	}
 
 }
@@ -165,6 +166,13 @@ void APlayerCharacter::WeaponAttack()
 	}
 }
 
+void APlayerCharacter::Dodge()
+{
+	if (ActionState != EActionState::EAS_Unoccupied) return;
+	PlayDodgeMontage();
+	ActionState = EActionState::EAS_Dodge;
+}
+
 void APlayerCharacter::Move(const FInputActionValue& Value)
 {
 	if (ActionState != EActionState::EAS_Unoccupied) return;
@@ -199,6 +207,13 @@ void APlayerCharacter::EquipWeapon(AWeapon* Weapon)
 
 void APlayerCharacter::AttackEnd()
 {
+	ActionState = EActionState::EAS_Unoccupied;
+}
+
+void APlayerCharacter::DodgeEnd()
+{
+	Super::DodgeEnd();
+
 	ActionState = EActionState::EAS_Unoccupied;
 }
 

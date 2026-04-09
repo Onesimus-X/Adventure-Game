@@ -164,6 +164,11 @@ int32 ABaseCharacter::PlayDeathMontage()
 	return Selection;
 }
 
+void ABaseCharacter::PlayDodgeMontage()
+{
+	PlayMontageSection(DodgeMontage, FName("Default"));
+}
+
 void ABaseCharacter::DisableCapsule()
 {
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -185,6 +190,11 @@ void ABaseCharacter::DisableMeshCollision()
 }
 
 void ABaseCharacter::AttackEnd()
+{
+	// Override in PlayerCharacter
+}
+
+void ABaseCharacter::DodgeEnd()
 {
 	// Override in PlayerCharacter
 }
