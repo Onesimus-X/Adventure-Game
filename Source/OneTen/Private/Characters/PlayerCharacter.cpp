@@ -26,7 +26,7 @@
 APlayerCharacter::APlayerCharacter()
 {
 
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -47,6 +47,15 @@ APlayerCharacter::APlayerCharacter()
 
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
 	ViewCamera->SetupAttachment(CameraBoom);
+}
+
+void APlayerCharacter::Tick(float DeltaTime)
+{
+	if (Attributes && PlayerOverlay)
+	{
+		Attributes->RegenStamina(DeltaTime);
+		PlayerOverlay->SetStaminaBarPercent(Attributes->GetStaminaPercent());
+	}
 }
 
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -168,9 +177,15 @@ void APlayerCharacter::WeaponAttack()
 
 void APlayerCharacter::Dodge()
 {
-	if (ActionState != EActionState::EAS_Unoccupied) return;
+	// || is or instead && which is and
+	if (IsOccupied() || !HasEnoughStamina()) return;
 	PlayDodgeMontage();
 	ActionState = EActionState::EAS_Dodge;
+	if (Attributes && PlayerOverlay)
+	{
+		Attributes->UseStamina(Attributes->GetDodgeCost());
+		PlayerOverlay->SetStaminaBarPercent(Attributes->GetStaminaPercent());
+	}
 }
 
 void APlayerCharacter::Move(const FInputActionValue& Value)
@@ -282,6 +297,16 @@ void APlayerCharacter::Die()
 
 	ActionState = EActionState::EAS_Dead;
 	DisableMeshCollision();
+}
+
+bool APlayerCharacter::HasEnoughStamina()
+{
+	return Attributes && Attributes->GetStamina() > Attributes->GetDodgeCost();
+}
+
+bool APlayerCharacter::IsOccupied()
+{
+	return ActionState != EActionState::EAS_Unoccupied;
 }
 
 void APlayerCharacter::FinishEquipping()

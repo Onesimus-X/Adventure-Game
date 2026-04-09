@@ -31,6 +31,7 @@ class ONETEN_API APlayerCharacter : public ABaseCharacter, public  IPickupInterf
 public:
 
 	APlayerCharacter();
+	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void Jump() override;
 
@@ -89,6 +90,9 @@ protected:
 	void Arm();
 	void PlayEquipMontage(const FName& SectionName);
 	virtual void Die() override;
+
+	bool HasEnoughStamina();
+	bool IsOccupied();
 
 	UFUNCTION(BlueprintCallable)
 	void AttachWeaponToBack();
